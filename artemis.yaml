@@ -2,6 +2,7 @@ version: '3'
 volumes:
   artemislogs: {}
   redislogs: {}
+  redistmp: {}
 
 services:
   artemis:
