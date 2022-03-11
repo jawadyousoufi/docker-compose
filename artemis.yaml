@@ -1,0 +1,38 @@
+version: '3'
+volumes:
+  artemislogs: {}
+  redislogs: {}
+
+services:
+  artemis:
+    depends_on:
+    - redis
+    - mysql
+    image: farrukhsadykov/artemis:0.0.5
+    ports:
+      - "5000:5000"
+    volumes:
+    - artemislogs:/var/log
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+
+  redis:
+    depends_on:
+    - mysql
+    image: redis
+    volumes:
+      - redislogs:/var/log
+      - redislogs:/var/tmp
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+   
